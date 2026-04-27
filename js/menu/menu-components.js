@@ -311,7 +311,13 @@ function generatePrompt() {
     const remainingCalories = dailyCalories - 140;
     const bCal = Math.round(remainingCalories * 0.25), lCal = Math.round(remainingCalories * 0.40), dCal = Math.round(remainingCalories * 0.35);
     
-    const prompt = `Привет! Ты - шеф-повар. Составь меню на ${getWeekDateRange()}.
+    const prompt = `Привет! Ты - шеф-повар уровня Гордона Рамзи и Джейми Оливера. Составь меню на ${getWeekDateRange()}.
+=== ОБО МНЕ ===
+Женщина, ${appData.userHeight}см/${appData.userWeight}кг, ${dailyCalories}ккал/день (вкл. колу 140).
+Завтрак ~${bCal}ккал, Обед ~${lCal}ккал, Ужин ~${dCal}ккал.
+Завтраки быстрые, ужин может быть похожим на салат, в обеде/ужине белок. Хлеб не покупаю. Я работаю из дома и могу готовить каждый прием пищи, но я не очень умелый повар. 
+Аэрогриль, вафельница, плита, духовка, блендер.
+ОБЯЗАТЕЛЬНО УЧИТЫВАЙ КБЖУ
 
 === ПРОДУКТЫ ===
 ${productsList}
@@ -321,12 +327,6 @@ ${getMealPreferencesForPrompt()}
 === НУЖНО МЕНЮ ===
 ${selectedDaysList}
 ${getLastWeekMenu()}
-
-=== ОБО МНЕ ===
-Женщина, ${appData.userHeight}см/${appData.userWeight}кг, ${dailyCalories}ккал/день (вкл. колу 140).
-Завтрак ~${bCal}ккал, Обед ~${lCal}ккал, Ужин ~${dCal}ккал.
-Завтраки быстрые, ужин-салаты, в обеде/ужине белок. Хлеб не покупаю.
-Аэрогриль, вафельница, плита, духовка, блендер.
 
 === ФОРМАТ JSON ===
 [{"day":"Пн","meal":"Завтрак","title":"...","recipe":["..."],"ingredients":[{"name":"...","amount":"100г","kcal":120,"protein":10,"fat":5,"carbs":8}],"total":{"kcal":${bCal},"protein":30,"fat":20,"carbs":50}}]`;
