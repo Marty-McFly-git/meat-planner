@@ -3,7 +3,7 @@
 */
 
 const appData = {
-    currentTab: 'menu',
+    currentTab: 'products',
     products: [],
     weeklyMenu: [],
     shoppingList: [],
@@ -37,9 +37,7 @@ const MEALS = {
     'dinner': '🥗 Ужин'
 };
 
-// ============================================
-// ДАТЫ
-// ============================================
+// Даты (оставь как было)
 
 function getDateForDay(dayIndex) {
     if (!appData.weekStartDate) setWeekToCurrent();
@@ -64,14 +62,12 @@ function setWeekToCurrent() {
     else monday.setDate(today.getDate() - (dayOfWeek - 1));
     monday.setHours(0, 0, 0, 0);
     appData.weekStartDate = monday.toISOString().split('T')[0];
-    saveAppDataToDB();
 }
 
 function nextWeek() {
     const currentStart = new Date(appData.weekStartDate);
     currentStart.setDate(currentStart.getDate() + 7);
     appData.weekStartDate = currentStart.toISOString().split('T')[0];
-    saveAppDataToDB();
     if (appData.currentTab === 'menu') showMenuTab();
 }
 
@@ -79,7 +75,6 @@ function prevWeek() {
     const currentStart = new Date(appData.weekStartDate);
     currentStart.setDate(currentStart.getDate() - 7);
     appData.weekStartDate = currentStart.toISOString().split('T')[0];
-    saveAppDataToDB();
     if (appData.currentTab === 'menu') showMenuTab();
 }
 
@@ -104,7 +99,6 @@ function setWeekFromPicker() {
     const monday = getMondayFromDate(new Date(picker.value));
     monday.setHours(0, 0, 0, 0);
     appData.weekStartDate = monday.toISOString().split('T')[0];
-    saveAppDataToDB();
     if (appData.currentTab === 'menu') showMenuTab();
 }
 
@@ -113,22 +107,9 @@ function getDateForPicker() {
     return appData.weekStartDate;
 }
 
-// ============================================
-// ДАННЫЕ
-// ============================================
-
-async function saveData() {
-    for (const product of appData.products) await dbSaveProduct(product);
-    await saveAppDataToDB();
-}
-
 function getProductsByCategory(categoryId) {
     return appData.products.filter(p => p.category === categoryId);
 }
-
-// ============================================
-// ЭКСПОРТ ДЛЯ БОТА
-// ============================================
 
 async function exportForTelegramBot() {
     const data = {
@@ -149,52 +130,38 @@ async function exportForTelegramBot() {
     a.click();
 }
 
-// ============================================
-// ЗАГРУЗКА
-// ============================================
-
-async function loadSavedMenu() {
-    try {
-        const history = await dbGetMenuHistory();
-        if (history && history.length > 0) {
-            appData.menuHistory = history;
-            const lastMenu = history[history.length - 1];
-            if (lastMenu && lastMenu.menu) appData.parsedMenu = lastMenu.menu;
-        }
-        const savedWeekStart = await dbGetSetting('weekStartDate');
-        appData.weekStartDate = savedWeekStart || (setWeekToCurrent(), appData.weekStartDate);
-    } catch (e) { console.error('Ошибка загрузки:', e); }
-}
-
-// ============================================
-// НАВИГАЦИЯ
-// ============================================
-
 function showTab(tabName) {
     appData.currentTab = tabName;
     document.querySelectorAll('.tab').forEach(tab => {
         tab.classList.remove('active');
-        if (tab.textContent.includes(getTabTitle(tabName))) tab.classList.add('active');
+        if (tab.textContent.includes(
+            tabName === 'products' ? 'Продукты' : 
+            tabName === 'menu' ? 'Меню' : 
+            tabName === 'shopping' ? 'Покупки' : 'Статистика'
+        )) tab.classList.add('active');
     });
     
-    switch(tabName) {
-        case 'products': if (typeof showProductsTab === 'function') showProductsTab(); break;
-        case 'menu': if (typeof showMenuTab === 'function') { showMenuTab(); setTimeout(() => { if (appData.parsedMenu?.length) displayMenu(appData.parsedMenu); }, 100); } break;
-        case 'shopping': if (typeof showShoppingTab === 'function') showShoppingTab(); break;
-        case 'stats': if (typeof showStatsTab === 'function') showStatsTab(); break;
-    }
+    if (tabName === 'products' && typeof showProductsTab === 'function') showProductsTab();
+    if (tabName === 'menu' && typeof showMenuTab === 'function') { showMenuTab(); setTimeout(() => { if (appData.parsedMenu?.length && typeof displayMenu === 'function') displayMenu(appData.parsedMenu); }, 100); }
+    if (tabName === 'shopping' && typeof showShoppingTab === 'function') showShoppingTab();
+    if (tabName === 'stats' && typeof showStatsTab === 'function') showStatsTab();
 }
 
-function getTabTitle(tabName) {
-    return { 'products': 'Продукты', 'menu': 'Меню', 'shopping': 'Покупки', 'stats': 'Статистика' }[tabName] || tabName;
-}
-
-// ============================================
-// ЗАПУСК
-// ============================================
-
+// ЗАПУСК - сначала продукты, потом меню
 document.addEventListener('DOMContentLoaded', async function() {
-    await initApp();
-    await loadSavedMenu();
-    showTab(appData.currentTab);
+    // Ждём загрузку базы данных
+    if (typeof initApp === 'function') {
+        await initApp();
+    }
+    
+    // Если продукты не загрузились из БД, берём из MY_PRODUCTS
+    if (appData.products.length === 0 && typeof MY_PRODUCTS !== 'undefined') {
+        appData.products = MY_PRODUCTS.map((p, i) => ({ ...p, id: Date.now() + i }));
+    }
+    
+    // Устанавливаем текущую неделю
+    setWeekToCurrent();
+    
+    // Открываем вкладку продуктов первой
+    showTab('products');
 });
