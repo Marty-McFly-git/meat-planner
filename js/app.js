@@ -37,7 +37,9 @@ const MEALS = {
     'dinner': '🥗 Ужин'
 };
 
-// Даты (оставь как было)
+// ============================================
+// ДАТЫ
+// ============================================
 
 function getDateForDay(dayIndex) {
     if (!appData.weekStartDate) setWeekToCurrent();
@@ -147,21 +149,16 @@ function showTab(tabName) {
     if (tabName === 'stats' && typeof showStatsTab === 'function') showStatsTab();
 }
 
-// ЗАПУСК - сначала продукты, потом меню
+// ЗАПУСК
 document.addEventListener('DOMContentLoaded', async function() {
-    // Ждём загрузку базы данных
     if (typeof initApp === 'function') {
         await initApp();
     }
     
-    // Если продукты не загрузились из БД, берём из MY_PRODUCTS
     if (appData.products.length === 0 && typeof MY_PRODUCTS !== 'undefined') {
         appData.products = MY_PRODUCTS.map((p, i) => ({ ...p, id: Date.now() + i }));
     }
     
-    // Устанавливаем текущую неделю
     setWeekToCurrent();
-    
-    // Открываем вкладку продуктов первой
     showTab('products');
 });

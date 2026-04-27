@@ -1,24 +1,88 @@
 /*
-   products.js - продукты
+   products.js - с актуальными продуктами
 */
 
 const MY_PRODUCTS = [
+    // Консервы
     { category: 'canned', name: 'Нут', amount: 7, unit: 'банок', weight: 400, weightUnit: 'г', isOpened: false, isFrozen: false },
     { category: 'canned', name: 'Кукуруза', amount: 9, unit: 'банок', weight: 340, weightUnit: 'г', isOpened: false, isFrozen: false },
     { category: 'canned', name: 'Зеленый горошек', amount: 8, unit: 'банок', weight: 400, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'canned', name: 'Красная фасоль в соусе барбекю', amount: 3, unit: 'банки', weight: 400, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'canned', name: 'Белая фасоль в соусе чили', amount: 1, unit: 'банка', weight: 400, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'canned', name: 'Паштет из трески', amount: 1, unit: 'банка', weight: 120, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'canned', name: 'Ананас', amount: 1, unit: 'банка', weight: 565, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'canned', name: 'Томатный соус', amount: 0.5, unit: 'банки', weight: 350, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'canned', name: 'Песто', amount: 0.5, unit: 'банки', weight: 190, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'canned', name: 'Томаты в собственном соку', amount: 1, unit: 'банка', weight: 400, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'canned', name: 'Консервированные луковички в уксусе', amount: 0.5, unit: 'банки', weight: 300, weightUnit: 'г', isOpened: true, isFrozen: false },
+    
+    // Заморозки
     { category: 'frozen', name: 'Фасоль зеленая', amount: 500, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Лук в кубиках', amount: 350, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Гавайская смесь', amount: 200, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Смесь на завтрак', amount: 200, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
     { category: 'frozen', name: 'Ягоды смесь', amount: 1000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
-    { category: 'meat', name: 'Фрикадельки куриные', amount: 150, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Облепиха', amount: 200, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Сырники', amount: 4, unit: 'шт', weight: 75, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Гуакамоле', amount: 200, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Шпинат резанный', amount: 500, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Зеленый горошек', amount: 750, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Кукуруза', amount: 1000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'frozen', name: 'Бобы эдамеме', amount: 1000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    
+    // Мясо и рыба
     { category: 'meat', name: 'Стейк из свинины', amount: 400, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'meat', name: 'Филе грудки индейки в сливочном соусе', amount: 250, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'meat', name: 'Бекон сырокопченный', amount: 250, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'meat', name: 'Мидии в собственном соку', amount: 450, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'meat', name: 'Тунец замороженный', amount: 1350, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    { category: 'meat', name: 'Медальоны из панганиуса', amount: 200, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: true },
+    
+    // Бакалея
     { category: 'groceries', name: 'Паста спагетти', amount: 1000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Паста птитим', amount: 1000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
     { category: 'groceries', name: 'Белый рис в пакетиках', amount: 5, unit: 'пакетов', weight: 125, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Бурый рис в пакетиках', amount: 10, unit: 'пакетов', weight: 125, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Гречка в пакетиках', amount: 4, unit: 'пакета', weight: 125, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Листья для лазаньи', amount: 1, unit: 'упаковка', weight: 250, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Паста гнезда', amount: 1, unit: 'упаковка', weight: 250, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Паста ракушки большие', amount: 1, unit: 'упаковка', weight: 500, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Кускус', amount: 1000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Кускус с вялеными томатами', amount: 1, unit: 'упаковка', weight: 250, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Yelli суп итальянский', amount: 1, unit: 'упаковка', weight: 200, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Yelli ризотто с томатами', amount: 1, unit: 'упаковка', weight: 200, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Yelli паста римская со шпинатом', amount: 1, unit: 'упаковка', weight: 200, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Yelli рис со шпинатом по-гречески', amount: 1, unit: 'упаковка', weight: 200, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Yelli кхао пад', amount: 1, unit: 'упаковка', weight: 200, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Суп Грибной из Икеи', amount: 500, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'groceries', name: 'Лапша удон', amount: 1, unit: 'упаковка', weight: 300, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'groceries', name: 'Мюсли', amount: 5000, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    
+    // Овощи и фрукты
     { category: 'veggies', name: 'Картофель бэби', amount: 1250, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
-    { category: 'veggies', name: 'Яблоки', amount: 2, unit: 'шт', weight: 150, weightUnit: 'г', isOpened: true, isFrozen: false },
-    { category: 'dairy', name: 'Сыр пармезан', amount: 150, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
-    { category: 'dairy', name: 'Яйца', amount: 10, unit: 'шт', weight: 50, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'veggies', name: 'Чеснок', amount: 3, unit: 'головки', weight: 30, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'veggies', name: 'Лимоны', amount: 2, unit: 'шт', weight: 100, weightUnit: 'г', isOpened: true, isFrozen: false },
+    
+    // Молочное и яйца
+    { category: 'dairy', name: 'Сыр пармезан', amount: 120, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'dairy', name: 'Йогурт греческий', amount: 1, unit: 'банка', weight: 130, weightUnit: 'г', isOpened: false, isFrozen: false },
+    { category: 'dairy', name: 'Сербская брынза', amount: 140, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false },
+    { category: 'dairy', name: 'Яйца', amount: 6, unit: 'шт', weight: 50, weightUnit: 'г', isOpened: false, isFrozen: false },
+    
+    // Разное
+    { category: 'other', name: 'Подсолнечное масло', amount: 1000, unit: 'мл', weight: 1, weightUnit: 'мл', isOpened: true, isFrozen: false },
     { category: 'other', name: 'Оливковое масло', amount: 1000, unit: 'мл', weight: 1, weightUnit: 'мл', isOpened: true, isFrozen: false },
-    { category: 'other', name: 'Соевый соус', amount: 1, unit: 'бутылка', weight: 250, weightUnit: 'мл', isOpened: true, isFrozen: false }
+    { category: 'other', name: 'Репейное масло', amount: 250, unit: 'мл', weight: 1, weightUnit: 'мл', isOpened: true, isFrozen: false },
+    { category: 'other', name: 'Чесночное масло', amount: 250, unit: 'мл', weight: 1, weightUnit: 'мл', isOpened: true, isFrozen: false },
+    { category: 'other', name: 'Специи разные', amount: 1, unit: 'набор', weight: 0, weightUnit: '', isOpened: true, isFrozen: false },
+    { category: 'other', name: 'Соевый соус', amount: 1, unit: 'бутылка', weight: 250, weightUnit: 'мл', isOpened: true, isFrozen: false },
+    { category: 'other', name: 'Заправки для салатов', amount: 1, unit: 'набор', weight: 0, weightUnit: '', isOpened: true, isFrozen: false },
+    { category: 'other', name: 'Соус гуакамоле', amount: 30, unit: 'г', weight: 1, weightUnit: 'г', isOpened: true, isFrozen: false }
 ];
+
+// ============================================
+// ОСНОВНАЯ ФУНКЦИЯ
+// ============================================
 
 function showProductsTab() {
     const content = document.getElementById('content');
